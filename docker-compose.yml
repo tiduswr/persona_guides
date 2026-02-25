@@ -3,8 +3,6 @@ services:
     image: mongo:latest
     container_name: persona_mongo
     restart: always
-    ports:
-      - "27017:27017" # Permite que você acesse pelo MongoDB Compass no seu Linux
     environment:
       - MONGO_INITDB_DATABASE=persona_db
       - MONGO_INITDB_ROOT_USERNAME=admin
@@ -16,11 +14,11 @@ services:
       - persona-network
 
   app:
-    build: . # Ajustado de ./next_app para . (assumindo raiz)
+    build: ./next_app
     container_name: persona_app
     restart: always
     ports:
-      - "3000:3000"
+      - "${PORT}:3000"
     environment:
       - MONGODB_URI=${MONGODB_URI}
       - NODE_ENV=production
