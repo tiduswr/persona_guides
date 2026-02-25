@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   description: "Complete database for Persona Games. Filter shadows by Arcana, search by name, and master the Tartarus data. Developed by Harllem Nascimento.",
   keywords: ["Persona 3 Reload", "Persona 5 Royal", "Shadows", "Arcana", "P3R Guide", "Database", "Gaming Tools"],
   authors: [{ name: "Harllem Nascimento", url: "https://harllemnascimento.cloud" }],
+  metadataBase: new URL("https://persona-guides.harllemnascimento.cloud"),
   icons: {
     icon: '/icon.png',
     shortcut: '/favicon.ico',
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        width: 1126,
+        height: 854,
       },
     ],
     locale: "pt_BR",
