@@ -33,7 +33,7 @@ jobs:
 
             # 3. Subir os containers (o --build garante que o Next.js seja recompilado)
             # Usamos 'app' especificamente para não reiniciar o banco sem necessidade
-            docker-compose up -d --build app
+            docker compose up -d --build app
             
             # 4. Limpeza de imagens antigas para não encher o disco da VPS
             docker image prune -f
