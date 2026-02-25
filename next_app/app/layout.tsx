@@ -8,27 +8,31 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Persona Guides — S.E.E.S Network',
-  description: 'Guia completo de respostas para Social Links, Exames e Database de Shadows para jogos da série Persona.',
-  generator: 'v0.app',
+  title: "Persona Guides Repository",
+  description: "Complete database for Persona Games. Filter shadows by Arcana, search by name, and master the Tartarus data. Developed by Harllem Nascimento.",
+  keywords: ["Persona 3 Reload", "Persona 5 Royal", "Shadows", "Arcana", "P3R Guide", "Database", "Gaming Tools"],
+  authors: [{ name: "Harllem Nascimento", url: "https://harllemnascimento.cloud" }],
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
+    icon: '/icon.png',
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
-}
+  openGraph: {
+    title: "Persona Guides Repository",
+    description: "Explore every Shadow and Arcana from Persona 3 Reload and P5R.",
+    url: "https://persona-guides.harllemnascimento.cloud",
+    siteName: "Persona Hub",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+};
 
 export default function RootLayout({
   children,
