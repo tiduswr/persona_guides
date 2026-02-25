@@ -1,0 +1,39 @@
+name: Deploy Persona Hub
+
+on:
+  push:
+    branches:
+      - master  # Como seu terminal mostrou (master), mantivemos aqui
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            # 1. Navegar ou criar a pasta do projeto
+            mkdir -p ~/p3r_guides
+            cd ~/p3r_guides
+
+            # 2. Se a pasta não tiver um repositório git, clona. Se tiver, atualiza.
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${{ github.repository }}.git .
+            else
+              git pull origin master
+            fi
+
+            # 3. Subir os containers (o --build garante que o Next.js seja recompilado)
+            # Usamos 'app' especificamente para não reiniciar o banco sem necessidade
+            docker-compose up -d --build app
+            
+            # 4. Limpeza de imagens antigas para não encher o disco da VPS
+            docker image prune -f
