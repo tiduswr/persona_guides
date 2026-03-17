@@ -27,7 +27,7 @@
 
 | Layer | Technology |
 | :--- | :--- |
-| **Frontend** | Next.js 14 (App Router), React, TypeScript |
+| **Frontend** | Next.js 16 (App Router), React, TypeScript |
 | **Styling** | Tailwind CSS, Lucide Icons |
 | **Data Fetching** | TanStack Query (React Query) |
 | **Database** | MongoDB (Running on Docker) |
