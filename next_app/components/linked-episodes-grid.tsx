@@ -60,7 +60,7 @@ export function LinkedEpisodesGrid() {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400" />
           <input
             type="text"
-            placeholder="Buscar por personagem, local ou recompensa..."
+            placeholder="Find by character, local or reward..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-white/10 bg-black/40 py-3.5 pl-12 pr-10 text-sm text-slate-200 focus:border-cyan-500/50 outline-none transition-all"
