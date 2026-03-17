@@ -80,7 +80,7 @@ export function LinkedEpisodesGrid() {
               !characterFilter ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-transparent text-slate-500'
             }`}
           >
-            Todos
+            All
           </button>
           {characters.map(char => (
             <button
@@ -100,11 +100,11 @@ export function LinkedEpisodesGrid() {
       <div className="grid grid-cols-1 gap-4">
         {isLoading ? (
           <div className="py-20 text-center text-cyan-500 animate-pulse font-black uppercase tracking-tighter">
-            Sincronizando episódios vinculados...
+            Syncing Linked Episodes...
           </div>
         ) : isError ? (
           <div className="py-10 text-center text-red-400 border border-red-500/20 bg-red-500/5 rounded-2xl">
-            Falha na conexão com o terminal da SEES.
+            Failed to connect to the SEES terminal.
           </div>
         ) : (
           <>
@@ -144,7 +144,7 @@ export function LinkedEpisodesGrid() {
                 {/* Deadline Badge*/}
                 {ep.deadline && (
                   <div className="mt-3 pt-3 border-t border-white/5 text-[10px] text-red-400/80 font-bold uppercase tracking-widest">
-                    Prazo Final: {new Date(ep.deadline).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' })}
+                    Deadline: {new Date(ep.deadline).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' })}
                   </div>
                 )}
               </div>
@@ -152,7 +152,7 @@ export function LinkedEpisodesGrid() {
 
             {filtered.length === 0 && (
               <div className="py-32 text-center border border-dashed border-white/10 rounded-3xl">
-                <p className="text-slate-600">Nenhum evento registrado para este período.</p>
+                <p className="text-slate-600">No events registered for this period.</p>
               </div>
             )}
           </>
