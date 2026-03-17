@@ -22296,3 +22296,44 @@ db.demons.insertMany([
     appears: "Yabbashah I 90",
   },
 ]);
+
+
+db.createCollection("linkedEpisodes");
+db.linkedEpisodes.createIndex({ gameId: 1, character: 1 });
+db.linkedEpisodes.insertMany([
+  {gameId:"p3r",character:"Junpei Iori",time:"Day",available:"2009-05-12",deadline:"2009-07-03",location:"Gekkoukan High School",reward:"St +3 Hermes",persona:"Surt"},
+  {gameId:"p3r",character:"Junpei Iori",time:"Day",available:"2009-08-09",deadline:"2009-08-28",location:"Iwatodai Strip Mall",reward:"+1 Charm",persona:"Surt"},
+  {gameId:"p3r",character:"Junpei Iori",time:"Day",available:"2009-11-05",deadline:"2009-11-13",location:"Gekkoukan High School (Classroom)",reward:"+1 Academics",persona:"Surt"},
+  {gameId:"p3r",character:"Junpei Iori",time:"Night",available:"2009-11-08",deadline:"2009-11-20",location:"Iwatodai Dorm 1F (Lounge)",reward:"-",persona:"Surt"},
+  {gameId:"p3r",character:"Junpei Iori",time:"Day",available:"2009-12-19",deadline:"2009-12-26",location:"Gekkoukan High School (Classroom)",reward:"+1 Courage",persona:"Surt"},
+  {gameId:"p3r",character:"Junpei Iori",time:"Day",available:"2010-01-15",deadline:"2010-01-29",location:"Gekkoukan High School (Classroom)",reward:"Baseball Glove",persona:"Surt"},
+  {gameId:"p3r",character:"Akihiko Sanada",time:"Night",available:"2009-05-29",deadline:"2009-07-10",location:"Iwatodai Station",reward:"+5 Max HP or +3 Max SP",persona:"Horus"},
+  {gameId:"p3r",character:"Akihiko Sanada",time:"Night",available:"2009-07-24",deadline:"2009-08-31",location:"Iwatodai Station",reward:"Luxe Tropical Fruit x1 Imperial Sweets Set x1 Fresh Juice x1 +1 Charm",persona:"Horus"},
+  {gameId:"p3r",character:"Akihiko Sanada",time:"Night",available:"2009-10-09",deadline:"2009-11-02",location:"Iwatodai Station",reward:"+1 Charm",persona:"Horus"},
+  {gameId:"p3r",character:"Akihiko Sanada",time:"Night",available:"2009-12-12",deadline:"2009-12-26",location:"Iwatodai Station",reward:"+3 Max SP",persona:"Horus"},
+  {gameId:"p3r",character:"Akihiko Sanada",time:"Night",available:"2010-01-04",deadline:"2010-01-29",location:"Iwatodai Station",reward:"Hand Wraps",persona:"Horus"},
+  {gameId:"p3r",character:"Koromaru",time:"Day",available:"2009-08-22",deadline:"2010-01-30",location:"Iwatodai Dorm (Outside)",reward:"+1 Charm",persona:"Byakko"},
+  {gameId:"p3r",character:"Koromaru",time:"Day",available:"2009-09-04",deadline:"2010-01-30",location:"Iwatodai Dorm (Outside)",reward:"+1 Courage",persona:"Byakko"},
+  {gameId:"p3r",character:"Koromaru",time:"Day",available:"2009-09-05",deadline:"2010-01-30",location:"Iwatodai Dorm (Outside)",reward:"Ag +3 Cerberus",persona:"Byakko"},
+  {gameId:"p3r",character:"Koromaru",time:"Day",available:"2009-09-16",deadline:"2010-01-30",location:"Iwatodai Dorm (Outside)",reward:"+1 Courage",persona:"Byakko"},
+  {gameId:"p3r",character:"Koromaru",time:"Day",available:"2010-01-05",deadline:"2010-01-30",location:"Iwatodai Dorm (Outside)",reward:"Koromaru's Collar",persona:"Byakko"},
+  {gameId:"p3r",character:"Ken Amada",time:"Night",available:"2009-09-08",deadline:"2009-09-30",location:"Iwatodai Dorm 2F",reward:"+1 Academics",persona:"Michael"},
+  {gameId:"p3r",character:"Ken Amada",time:"Night",available:"2009-09-15",deadline:"2009-09-30",location:"Iwatodai Dorm 2F",reward:"+1 Courage",persona:"Michael"},
+  {gameId:"p3r",character:"Ken Amada",time:"Night",available:"2009-09-10",deadline:"2009-11-02",location:"Iwatodai Dorm (Outside)",reward:"+1 Charm",persona:"Michael"},
+  {gameId:"p3r",character:"Ken Amada",time:"Night",available:"2009-09-22",deadline:"2009-12-30",location:"Iwatodai Dorm 4F",reward:"+3 Max SP",persona:"Michael"},
+  {gameId:"p3r",character:"Ken Amada",time:"Night",available:"2010-01-19",deadline:"2010-01-27",location:"Iwatodai Dorm 4F",reward:"Silver Key",persona:"Michael"},
+  {gameId:"p3r",character:"Shinjiro Aragaki",time:"Day",available:"2009-09-04",deadline:"2009-10-02",location:"Gekkoukan High School 1F Faculty Office Hallway (Mitsuru) Port Island Station Outskirts (Shinjiro)",reward:"Reinstatement Form Courage +1",persona:"Hell Biker"},
+  {gameId:"p3r",character:"Shinjiro Aragaki",time:"Day",available:"2009-09-11",deadline:"2009-10-02",location:"Port Island Station Outskirts",reward:"+1 Charm",persona:"Hell Biker"},
+  {gameId:"p3r",character:"Shinjiro Aragaki",time:"Day",available:"2009-09-13",deadline:"2009-10-02",location:"Port Island Station Outskirts",reward:"Extension Form +1 Academics",persona:"Hell Biker"},
+  {gameId:"p3r",character:"Shinjiro Aragaki",time:"Day",available:"2009-09-14",deadline:"2009-10-02",location:"Gekkoukan High School 1F Faculty Office Hallway (Mitsuru) Port Island Station Outskirts (Shinjiro)",reward:"+1 Courage",persona:"Hell Biker"},
+  {gameId:"p3r",character:"Shinjiro Aragaki",time:"Night",available:"2009-10-05",deadline:"2009-10-31",location:"Iwatodai Dorm 2F (Aragaki's room)",reward:"Incomplete Form",persona:"Hell Biker"},
+  {gameId:"p3r",character:"Ryoji Mochizuki",time:"Night",available:"2009-11-09",deadline:null,location:"Gekkoukan High School",reward:"+1 All Equipped Persona Stats",persona:"Saturnus"},
+  {gameId:"p3r",character:"Ryoji Mochizuki",time:"Day",available:"2009-11-12",deadline:"2009-11-16",location:"Gekkoukan High School (Classroom)",reward:"+1 All Equipped Persona Stats",persona:"Saturnus"},
+  {gameId:"p3r",character:"Ryoji Mochizuki",time:"Day",available:"2009-11-19",deadline:null,location:"Kyoto",reward:"+1 All Equipped Persona Stats",persona:"Saturnus"},
+  {gameId:"p3r",character:"Ryoji Mochizuki",time:"Day",available:"2009-12-01",deadline:null,location:"Gekkoukan High School (Music Room)",reward:"+1 All Equipped Persona Stats",persona:"Saturnus"},
+  {gameId:"p3r",character:"Ryoji Mochizuki",time:"Night",available:"2009-12-31",deadline:null,location:"Iwatodai Dorm",reward:"Music Box",persona:"Saturnus"},
+  {gameId:"p3r",character:"Takaya Sakaki",time:"Night",available:"2009-08-14",deadline:null,location:"Moonlight Bridge",reward:"-",persona:"-"},
+  {gameId:"p3r",character:"Takaya Sakaki",time:"Night",available:"2009-08-20",deadline:null,location:"Naganaki Shrine",reward:"Folded Paper",persona:"-"},
+  {gameId:"p3r",character:"Takaya Sakaki",time:"Night",available:"2009-09-18",deadline:null,location:"Port Island Station",reward:"-",persona:"-"},
+  {gameId:"p3r",character:"Takaya Sakaki",time:"Night",available:"2010-01-13",deadline:"2010-01-29",location:"Club Escapade",reward:"-",persona:"-"}
+]);

@@ -1,4 +1,4 @@
-import { Ghost, GraduationCap, LayoutGrid, Users } from "lucide-react";
+import { Ghost, GraduationCap, LayoutGrid, LinkIcon, Users } from "lucide-react";
 import Link from "next/link";
 
 export function Navbar() {
@@ -6,6 +6,7 @@ export function Navbar() {
     { name: "Shadows", href: "/demons", icon: <Ghost size={16} /> },
     { name: "Social Links", href: "/social-links", icon: <Users size={16} /> },
     { name: "Exams", href: "/exams", icon: <GraduationCap size={16} /> },
+    { name: "Linked Episodes", href: "/linked-episodes", icon: <LinkIcon size={16} /> },
   ];
 
   return (

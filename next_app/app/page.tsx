@@ -1,4 +1,4 @@
-import { ArrowRight, Ghost, GraduationCap, Users } from "lucide-react";
+import { ArrowRight, Ghost, GraduationCap, LinkIcon, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -24,6 +24,13 @@ export default function HomePage() {
       icon: <GraduationCap size={32} />,
       color: "from-emerald-500/20",
     },
+    {
+      title: "Linked Episodes",
+      desc: "Check when every Linked Episode is Available.",
+      href: "/linked-episodes",
+      icon: <LinkIcon size={32} />,
+      color: "from-emerald-500/20",
+    }
   ];
 
   return (
