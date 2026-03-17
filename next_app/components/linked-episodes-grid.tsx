@@ -144,7 +144,7 @@ export function LinkedEpisodesGrid() {
                 {/* Deadline Badge*/}
                 {ep.deadline && (
                   <div className="mt-3 pt-3 border-t border-white/5 text-[10px] text-red-400/80 font-bold uppercase tracking-widest">
-                    Deadline: {new Date(ep.deadline).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' })}
+                    Deadline: {new Date(ep.deadline).toLocaleDateString('en-US', { day: '2-digit', month: 'long' })}
                   </div>
                 )}
               </div>
