@@ -67,13 +67,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
-## 🧑‍💻 Author
+### 📝 Data & Licensing
 
-**tiduswr**
-* Master's Student at UFCG
-* Passionate about Compilers, Web Development, and JRPGs.
+This project is a non-profit fan-made tool. All game-related content and assets are property of **Atlus Co., Ltd.** and **SEGA**.
 
----
-
-### 📝 License
-This is a fan-made project for educational purposes. All characters, names, and game assets are trademarks of **Atlus / SEGA**.
+#### Data Sources
+* **Megaten Database**: A massive thank you to [aqiu384](https://github.com/aqiu384) for the open-source database. Most in-game stats, descriptions, and base attributes were sourced from this incredible community resource.
+* **Visual Assets**: Persona and Shadow icons/images were sourced from the [Megami Tensei Wiki](https://megamitensei.fandom.com/).
+* **Original Content**: All game mechanics, lore, and character data are intellectual property of **Atlus**.
