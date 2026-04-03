@@ -18,7 +18,7 @@ db.sociallinks.insertMany([
             response: 1,
             options: [
               {
-                text: "Progride automaticamente com a historia.",
+                text: "Automatic progress trough main story",
                 points: 0,
               },
             ],
@@ -4454,7 +4454,7 @@ db.sociallinks.insertMany([
             response: 1,
             options: [
               {
-                text: "Progride automaticamente com a historia.",
+                text: "Automatic progress trough main story",
                 points: 0,
               },
             ],
@@ -6229,7 +6229,7 @@ db.sociallinks.insertMany([
             response: 1,
             options: [
               {
-                text: "Progride automaticamente com a historia.",
+                text: "Automatic progress trough main story",
                 points: 0,
               },
             ],
