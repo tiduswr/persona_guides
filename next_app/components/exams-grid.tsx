@@ -38,7 +38,7 @@ export function ExamsGrid() {
     <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 lg:px-8">
       {/* Seleção de Jogo */}
       <div className="mb-6 flex gap-2">
-        {["p3r", "p5r"].map((game) => (
+        {["p3r"].map((game) => (
           <button 
             key={game}
             onClick={() => { setCurrentGame(game); setFilter(null); }}
@@ -48,7 +48,7 @@ export function ExamsGrid() {
                 : 'bg-card hover:bg-accent opacity-80'
             }`}
           >
-            {game === 'p3r' ? 'Persona 3 Reload' : 'Persona 5 Royal'}
+            {game === 'p3r' ? 'Persona 3 Reload' : 'Unknown'}
           </button>
         ))}
       </div>

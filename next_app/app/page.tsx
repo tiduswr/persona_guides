@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function HomePage() {
   const guides = [
     {
-      title: "Shadows Database",
+      title: "Enemies Database",
       desc: "Analyze elemental affinities, drops, and locations.",
       href: "/demons",
       icon: <Ghost size={32} />,
@@ -43,15 +43,15 @@ export default function HomePage() {
 
         <div className="relative mx-auto max-w-3xl">
           <div className="mb-6 inline-block rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1 text-[10px] font-black uppercase tracking-[0.4em] text-cyan-400">
-            Welcome to S.E.E.S Network
+            Welcome to Persona Network
           </div>
           <h1 className="text-5xl font-black italic uppercase tracking-tighter text-slate-100 sm:text-7xl">
             Persona Guides <br />
             <span className="text-cyan-500">Repository</span>
           </h1>
           <p className="mt-8 text-lg text-slate-400 font-medium">
-            Everything you need to master your journey through the Dark Hour. 
-            Detailed technical data for Shadows, Social Links, and Academic Exams.
+            Everything you need to master your journey through the Persona Games. 
+            Detailed technical data for Enemies, Social Links, and Academic Exams.
           </p>
         </div>
       </section>

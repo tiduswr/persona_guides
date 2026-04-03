@@ -9,8 +9,8 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Persona Guides Repository",
-  description: "Complete database for Persona Games. Filter shadows by Arcana, search by name, and master the Tartarus data. Developed by Harllem Nascimento.",
-  keywords: ["Persona 3 Reload", "Persona 5 Royal", "Shadows", "Arcana", "P3R Guide", "Database", "Gaming Tools"],
+  description: "Complete database for Persona Games. Filter enemies by Arcana, search by name, and master the Dungeons data. Developed by Harllem Nascimento.",
+  keywords: ["Persona 3 Reload", "Episode Aigis", "Enemies", "Arcana", "Database", "Gaming Tools"],
   authors: [{ name: "Harllem Nascimento", url: "https://harllemnascimento.cloud" }],
   metadataBase: new URL("https://persona-guides.harllemnascimento.cloud"),
   icons: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Persona Guides Repository",
-    description: "Explore every Shadow and Arcana from Persona 3 Reload and P5R.",
+    description: "Explore every Enemy and Arcana from Persona games.",
     url: "https://persona-guides.harllemnascimento.cloud",
     siteName: "Persona Hub",
     images: [

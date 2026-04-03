@@ -61,17 +61,22 @@ export function DemonsGrid() {
 
   const visibleDemons = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
-  
-  // Proteção extra na geração das raças
+
   const races = useMemo(() => {
     return Array.from(new Set(demons.map(d => d.race).filter(Boolean))).sort();
   }, [demons]);
+
+  type GameId = 'p3r' | 'p3rea';
+  const GAMES_NAMES: Record<GameId, string> = {
+    p3r: 'Persona 3 Reload',
+    p3rea: 'P3R: Episode Aigis'
+  };
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 lg:px-8">
       {/* Seleção de Jogo */}
       <div className="mb-6 flex gap-2">
-        {["p3r", "p5r"].map((game) => (
+        {(Object.keys(GAMES_NAMES) as GameId[]).map((game) => (
           <button
             key={game}
             onClick={() => {
@@ -85,7 +90,7 @@ export function DemonsGrid() {
                 : 'bg-card hover:bg-accent opacity-80'
             }`}
           >
-            {game === 'p3r' ? 'Persona 3 Reload' : 'Persona 5 Royal'}
+            {GAMES_NAMES[game]}
           </button>
         ))}
       </div>
@@ -96,7 +101,7 @@ export function DemonsGrid() {
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
           <input
             type="text"
-            placeholder="Search shadow by name or arcana..."
+            placeholder="Search enemy by name or arcana..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full rounded-xl border border-white/5 bg-black/40 py-3.5 pl-12 pr-4 text-sm text-slate-200 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 outline-none transition-all"
@@ -180,7 +185,7 @@ export function DemonsGrid() {
             {filtered.length === 0 && (
               <div className="text-center py-32 border border-dashed rounded-3xl border-white/5 bg-black/20">
                 <Ghost className="mx-auto mb-4 text-slate-700" size={48} />
-                <p className="text-slate-500 font-medium tracking-tight">No shadows detected in this sector.</p>
+                <p className="text-slate-500 font-medium tracking-tight">No enemy detected in this sector.</p>
               </div>
             )}
           </>
