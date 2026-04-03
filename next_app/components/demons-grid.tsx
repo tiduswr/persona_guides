@@ -26,10 +26,8 @@ export function DemonsGrid() {
       const res = await fetch(`/api/demons?game=${currentGame}`);
       if (!res.ok) throw new Error("Failed to breach the Dark Hour");
       const data = await res.json();
-      // Garante que sempre retornamos um array para evitar erros de .map()
       return Array.isArray(data) ? data : [];
     },
-    // Evita que o erro de uma aba quebre a outra
     retry: 1 
   });
 
@@ -52,7 +50,7 @@ export function DemonsGrid() {
       const searchTerm = search.toLowerCase();
 
       const matchesSearch = name.includes(searchTerm) || race.includes(searchTerm);
-      const matchesFilter = !filter || d.race === filter;
+      const matchesFilter = !filter || d.race.startsWith(filter);
       const demonBlock = getBlockName(d.appears);
       const matchesLocation = !locationFilter || demonBlock === locationFilter;
       return matchesSearch && matchesFilter && matchesLocation;
@@ -63,7 +61,7 @@ export function DemonsGrid() {
   const hasMore = visibleCount < filtered.length;
 
   const races = useMemo(() => {
-    return Array.from(new Set(demons.map(d => d.race).filter(Boolean))).sort();
+    return Array.from(new Set(demons.map(d => d.race).filter(d => !d.endsWith(" P")))).sort();
   }, [demons]);
 
   type GameId = 'p3r' | 'p3rea';
@@ -133,7 +131,7 @@ export function DemonsGrid() {
           <Filter className="h-3 w-3 text-slate-500 mr-2" />
           <button
             onClick={() => setFilter(null)}
-            className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
+            className={`px-4 cursor-pointer py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
                 !filter ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-transparent text-slate-500 hover:bg-white/10'
             }`}
           >
@@ -143,7 +141,7 @@ export function DemonsGrid() {
             <button
               key={race}
               onClick={() => setFilter(filter === race ? null : race)}
-              className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
+              className={`px-4 cursor-pointer py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
                 filter === race ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-transparent text-slate-500 hover:bg-white/10'
               }`}
             >
