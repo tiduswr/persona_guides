@@ -15,6 +15,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const game = searchParams.get("game") || "p3r";
     const data = await Exams.findOne({ gameId: game });
+    console.log(data);
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json({ error: "Erro ao buscar dados" }, { status: 500 });

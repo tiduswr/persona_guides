@@ -6,7 +6,7 @@ export default function HomePage() {
     {
       title: "Enemies Database",
       desc: "Analyze elemental affinities, drops, and locations.",
-      href: "/demons",
+      href: "/enemies",
       icon: <Ghost size={32} />,
       color: "from-cyan-500/20",
     },
@@ -18,9 +18,9 @@ export default function HomePage() {
       color: "from-blue-500/20",
     },
     {
-      title: "Exam Answers",
-      desc: "Ace every school challenge and boost your stats.",
-      href: "/exams",
+      title: "Answers",
+      desc: "Complete guide to answers in Persona Games.",
+      href: "/answers",
       icon: <GraduationCap size={32} />,
       color: "from-emerald-500/20",
     },

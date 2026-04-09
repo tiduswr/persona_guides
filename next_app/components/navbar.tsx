@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export function Navbar() {
   const navLinks = [
-    { name: "Enemies", href: "/demons", icon: <Ghost size={16} /> },
+    { name: "Enemies", href: "/enemies", icon: <Ghost size={16} /> },
     { name: "Social Links", href: "/social-links", icon: <Users size={16} /> },
-    { name: "Exams", href: "/exams", icon: <GraduationCap size={16} /> },
+    { name: "Answers", href: "/answers", icon: <GraduationCap size={16} /> },
     { name: "Linked Episodes", href: "/linked-episodes", icon: <LinkIcon size={16} /> },
   ];
 

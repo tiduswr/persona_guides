@@ -122,7 +122,7 @@ export function LinkedEpisodesGrid() {
                     <div className="flex items-center gap-4 text-sm text-slate-400">
                       <div className="flex items-center gap-1.5">
                         <Calendar size={14} className="text-cyan-500" />
-                        <span>{new Date(ep.available).toLocaleDateString('pt-BR', { timeZone: 'UTC' })}</span>
+                        <span>{new Date(ep.available).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'})}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <MapPin size={14} className="text-cyan-500" />
