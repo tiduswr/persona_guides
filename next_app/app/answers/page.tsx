@@ -1,11 +1,11 @@
-import { ExamsGrid } from "@/components/exams-grid";
-import { ExamsHeader } from "@/components/exams-header";
+import { AnswersGrid } from "@/components/answers-grid";
+import { AnswersHeader } from "@/components/answers-header";
 
 export default function LinkedEpisodes() {
   return (
     <div className="min-h-screen bg-background">
-      <ExamsHeader />
-      <ExamsGrid />
+      <AnswersHeader />
+      <AnswersGrid />
     </div>
   );
 }

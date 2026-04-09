@@ -1,4 +1,4 @@
-export function ExamsHeader() {
+export function AnswersHeader() {
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
