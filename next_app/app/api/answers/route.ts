@@ -18,18 +18,23 @@ export async function GET(request: Request) {
     const game = searchParams.get("game") || "p3r";
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
-    const query = searchParams.get("q") || ""; // Pegamos a busca aqui!
+    const query = searchParams.get("q") || "";
+    const tag = searchParams.get("tag") || "";
 
     const skip = (page - 1) * limit;
+
     let filter: any = { gameId: game };
 
     if (query) {
       filter.$or = [
-        { q: { $regex: query, $options: "i" } },    // Busca na pergunta
-        { a: { $regex: query, $options: "i" } },    // Busca na resposta
-        { date: { $regex: query, $options: "i" } }, // Busca na data
-        { tags: { $in: [new RegExp(query, "i")] } } // Busca dentro do array de tags
+        { q: { $regex: query, $options: "i" } },
+        { a: { $regex: query, $options: "i" } },
+        { date: { $regex: query, $options: "i" } }
       ];
+    }
+
+    if (tag) {
+      filter.tags = tag;
     }
 
     const [data, total] = await Promise.all([

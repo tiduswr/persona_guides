@@ -1,4 +1,5 @@
 export interface GameQuestion {
+  _id: string;
   gameId: string;       // "p3r", "p5r", etc.
   category: string[];   // ["school"], ["leblanc"]
   tags: string[];       // ["class"], ["exam"], ["crossword"], ["tv-quiz"]
@@ -15,7 +16,11 @@ export interface PaginationMeta {
   totalPages: number;
 }
 
-export interface GameQuestionsResponse {
+export interface AnswersResponse {
   data: GameQuestion[];
   meta: PaginationMeta;
+}
+
+export interface AnswerMetadataResponse {
+  tags: string[];
 }

@@ -3,8 +3,14 @@
 import { SocialLinkCard } from "@/components/social-link-card";
 import { getSocialLinks } from "@/services/social-links";
 import { useQuery } from "@tanstack/react-query";
-import { Filter, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
+import { GameSelector } from "./game-selector";
+import { TagFilter } from "./tag-filter";
+
+const GAMES_NAMES = {
+  p3r: 'Persona 3 Reload'
+};
 
 export function SocialLinksGrid() {
   const [search, setSearch] = useState("");
@@ -30,25 +36,15 @@ export function SocialLinksGrid() {
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 lg:px-8">
-      {/* Seleção de Jogo */}
-      <div className="mb-6 flex gap-2">
-        {["p3r"].map((game) => (
-          <button 
-            key={game}
-            onClick={() => { 
-              setCurrentGame(game); 
-              setFilter(null); 
-            }}
-            className={`px-4 py-2 rounded-md border transition-all ${
-              currentGame === game 
-                ? 'bg-primary text-primary-foreground border-primary shadow-md scale-105' 
-                : 'bg-card hover:bg-accent opacity-80'
-            }`}
-          >
-            {game === 'p3r' ? 'Persona 3 Reload' : 'Unknown'}
-          </button>
-        ))}
-      </div>
+      <GameSelector
+        currentGame={currentGame}
+        games={GAMES_NAMES}
+        onSelect={(id) => {
+          setCurrentGame(id);
+          setSearch("");
+          setFilter(null);
+        }}
+      />
 
       <div className="mb-8 space-y-4">
         {/* Barra de Busca */}
@@ -63,32 +59,18 @@ export function SocialLinksGrid() {
           />
         </div>
 
-        {/* Tags de Arcana */}
-        <div className="flex flex-wrap gap-2 items-center">
-          <Filter className="h-4 w-4 text-muted-foreground mr-1" />
-          <button
-            onClick={() => setFilter(null)}
-            className={`px-3 py-1 text-xs rounded-full border transition-all ${
-              filter === null 
-                ? 'bg-primary/20 border-primary text-primary font-bold' 
-                : 'bg-muted border-transparent hover:border-border'
-            }`}
-          >
-            All
-          </button>
-          {arcanaTags.map(arcana => (
-            <button
-              key={arcana}
-              onClick={() => setFilter(filter === arcana ? null : arcana)}
-              className={`px-3 py-1 text-xs rounded-full border transition-all ${
-                filter === arcana 
-                  ? 'bg-primary/20 border-primary text-primary font-bold' 
-                  : 'bg-muted border-transparent hover:border-border'
-              }`}
-            >
-              {arcana}
-            </button>
-          ))}
+        <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center">
+          <div className="w-full">
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 block">
+              Arcana
+            </label>
+            <TagFilter
+              items={arcanaTags}
+              activeItem={filter}
+              onItemClick={setFilter}
+              allLabel="All Arcanas"
+            />
+          </div>
         </div>
       </div>
 

@@ -1,99 +1,67 @@
 "use client"
 
-import { Demon } from "@/types/demon-entite";
+import { useDebounce } from "@/hooks/use-debounce";
+import { fetchDemons, fetchDemonsMetadata } from "@/services/fetchDemons";
+import { DemonMetadata, DemonResponse } from "@/types/demon-entite";
 import { useQuery } from "@tanstack/react-query";
-import { AlertCircle, Filter, Ghost, Plus, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { AlertCircle, Ghost, Search } from "lucide-react";
+import { useEffect, useState } from "react";
 import { DemonCard } from "./demon-card";
-
-const getBlockName = (location: string | undefined) => {
-  if (!location) return "";
-  const match = location.match(/^(.*?\s+[IVX]+)/i);
-  return match ? match[1] : location.split(' ')[0];
-};
+import { GameSelector } from "./game-selector";
+import { PaginationControls } from "./pagination-controls";
+import { TagFilter } from "./tag-filter";
 
 export function DemonsGrid() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<string | null>(null);
   const [currentGame, setCurrentGame] = useState("p3r");
   const [locationFilter, setLocationFilter] = useState<string | null>(null);
-  const ITEMS_PER_PAGE = 20;
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+  const [page, setPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
 
-  const { data: demons = [], isLoading, isError } = useQuery<Demon[]>({
-    queryKey: ["demons", currentGame],
-    queryFn: async () => {
-      const res = await fetch(`/api/demons?game=${currentGame}`);
-      if (!res.ok) throw new Error("Failed to breach the Dark Hour");
-      const data = await res.json();
-      return Array.isArray(data) ? data : [];
-    },
-    retry: 1 
+  const debouncedSearch = useDebounce(search, 300);
+
+  // Resetar página ao mudar filtros
+  useEffect(() => {
+    setPage(1);
+  }, [currentGame, debouncedSearch, filter, locationFilter]);
+
+  const { data: metadata } = useQuery<DemonMetadata>({
+    queryKey: ["demons-metadata", currentGame],
+    queryFn: () => fetchDemonsMetadata(currentGame),
+    staleTime: 1000 * 60 * 60,
   });
 
-  useEffect(() => {
-    setVisibleCount(ITEMS_PER_PAGE);
-  }, [search, filter, currentGame, locationFilter]);
+  const { data: apiResponse, isLoading, isError } = useQuery<DemonResponse>({
+    queryKey: ["demons", currentGame, page, debouncedSearch, filter, locationFilter],
+    queryFn: () => fetchDemons(currentGame, page, debouncedSearch, filter || "", locationFilter || ""),
+  });
 
-  const locations = useMemo(() => {
-    const uniqueGroups = demons
-      .map(d => getBlockName(d.appears))
-      .filter(Boolean) as string[];
+  const demons = apiResponse?.data || [];
+  const meta = apiResponse?.meta;
 
-    return Array.from(new Set(uniqueGroups)).sort();
-  }, [demons]);
+  const locations = metadata?.locations || [];
+  const races = metadata?.races || [];
 
-  const filtered = useMemo(() => {
-    return demons.filter(d => {
-      const name = d.name?.toLowerCase() || "";
-      const race = d.race?.toLowerCase() || "";
-      const searchTerm = search.toLowerCase();
-
-      const matchesSearch = name.includes(searchTerm) || race.includes(searchTerm);
-      const matchesFilter = !filter || d.race.startsWith(filter);
-      const demonBlock = getBlockName(d.appears);
-      const matchesLocation = !locationFilter || demonBlock === locationFilter;
-      return matchesSearch && matchesFilter && matchesLocation;
-    });
-  }, [demons, search, filter, locationFilter]);
-
-  const visibleDemons = filtered.slice(0, visibleCount);
-  const hasMore = visibleCount < filtered.length;
-
-  const races = useMemo(() => {
-    return Array.from(new Set(demons.map(d => d.race).filter(d => !d.endsWith(" P")))).sort();
-  }, [demons]);
-
-  type GameId = 'p3r' | 'p3rea';
-  const GAMES_NAMES: Record<GameId, string> = {
-    p3r: 'Persona 3 Reload',
-    p3rea: 'P3R: Episode Aigis'
+  const GAMES_NAMES = {
+    p3r: 'Persona 3 Reload'
   };
 
   return (
     <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 lg:px-8">
-      {/* Seleção de Jogo */}
-      <div className="mb-6 flex gap-2">
-        {(Object.keys(GAMES_NAMES) as GameId[]).map((game) => (
-          <button
-            key={game}
-            onClick={() => {
-              setCurrentGame(game);
-              setFilter(null);
-              setLocationFilter(null);
-            }}
-            className={`px-4 py-2 rounded-md border transition-all ${
-              currentGame === game
-                ? 'bg-primary text-primary-foreground border-primary shadow-md scale-105' 
-                : 'bg-card hover:bg-accent opacity-80'
-            }`}
-          >
-            {GAMES_NAMES[game]}
-          </button>
-        ))}
-      </div>
+      <GameSelector
+        currentGame={currentGame}
+        games={GAMES_NAMES}
+        onSelect={(id) => {
+          setCurrentGame(id);
+          setSearch("");
+          setFilter(null);
+          setLocationFilter(null);
+          setPage(1);
+        }}
+      />
 
-      {/* Search and Filters */}
+      {/* Search and Filters - Mantendo seu estilo */}
       <div className="mb-8 space-y-4">
         <div className="relative group">
           <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500 group-focus-within:text-cyan-400 transition-colors" />
@@ -106,7 +74,6 @@ export function DemonsGrid() {
           />
         </div>
 
-        {/* Filtro por Aparição/Localização */}
         <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center">
           <div className="w-full">
             <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 block">
@@ -119,39 +86,27 @@ export function DemonsGrid() {
             >
               <option value="">All Locations</option>
               {locations.map((loc) => (
-                <option key={loc} value={loc} className="bg-slate-900">
-                  {loc}
-                </option>
+                <option key={loc} value={loc} className="bg-slate-900">{loc}</option>
               ))}
             </select>
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-2 items-center">
-          <Filter className="h-3 w-3 text-slate-500 mr-2" />
-          <button
-            onClick={() => setFilter(null)}
-            className={`px-4 cursor-pointer py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
-                !filter ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-transparent text-slate-500 hover:bg-white/10'
-            }`}
-          >
-            All Arcanas
-          </button>
-          {races.map(race => (
-            <button
-              key={race}
-              onClick={() => setFilter(filter === race ? null : race)}
-              className={`px-4 cursor-pointer py-1.5 text-[10px] font-black uppercase tracking-widest rounded-full border transition-all ${
-                filter === race ? 'bg-cyan-500/20 border-cyan-500 text-cyan-400' : 'bg-white/5 border-transparent text-slate-500 hover:bg-white/10'
-              }`}
-            >
-              {race}
-            </button>
-          ))}
+        <div className="flex flex-col sm:flex-row gap-4 items-end sm:items-center">
+          <div className="w-full">
+            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2 block">
+              Arcana
+            </label>
+            <TagFilter
+              items={races}
+              activeItem={filter}
+              onItemClick={setFilter}
+              allLabel="All Arcanas"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Grid List with Error Handling */}
       <div className="space-y-4">
         {isLoading ? (
           <div className="py-20 text-center text-cyan-500/50 font-black italic uppercase tracking-tighter animate-pulse">
@@ -160,27 +115,22 @@ export function DemonsGrid() {
         ) : isError ? (
           <div className="py-20 text-center border border-red-500/20 bg-red-500/5 rounded-3xl">
             <AlertCircle className="mx-auto mb-4 text-red-500" size={40} />
-            <p className="text-red-400 font-bold uppercase tracking-widest text-xs">Connection to Tartarus Lost</p>
-            <p className="text-slate-500 text-sm mt-2">Check your database credentials or network connection.</p>
+            <p className="text-red-400 font-bold uppercase tracking-widest text-xs">Connection Lost</p>
           </div>
         ) : (
           <>
             <div className="grid grid-cols-1 gap-4">
-                {visibleDemons.map(demon => <DemonCard key={demon.name} demon={demon} />)}
+                {demons.map((demon: any) => <DemonCard key={demon._id} demon={demon} />)}
             </div>
 
-            {hasMore && (
-              <div className="pt-8 flex justify-center">
-                <button
-                  onClick={() => setVisibleCount(prev => prev + ITEMS_PER_PAGE)}
-                  className="flex items-center gap-2 px-8 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-400 font-black uppercase text-[11px] tracking-[0.2em] hover:bg-cyan-500/10 hover:border-cyan-500/30 hover:text-cyan-400 transition-all"
-                >
-                  <Plus size={16} /> Load More Entities
-                </button>
-              </div>
-            )}
+            <PaginationControls
+              page={page}
+              totalPages={meta?.totalPages || 0}
+              onPageChange={(newPage) => setPage(newPage)}
+              label="Sector"
+            />
 
-            {filtered.length === 0 && (
+            {demons.length === 0 && (
               <div className="text-center py-32 border border-dashed rounded-3xl border-white/5 bg-black/20">
                 <Ghost className="mx-auto mb-4 text-slate-700" size={48} />
                 <p className="text-slate-500 font-medium tracking-tight">No enemy detected in this sector.</p>
