@@ -18,7 +18,7 @@ export function LinkedEpisodesHeader() {
           Complete guide to Linked Episodes in Persona Games.
         </p>
         <div className="mt-8 flex justify-center">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+          <div className="h-px w-24 bg-linear-to-r from-transparent via-cyan-500/50 to-transparent" />
         </div>
       </div>
     </section>

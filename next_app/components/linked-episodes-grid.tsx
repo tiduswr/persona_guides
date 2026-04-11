@@ -121,13 +121,13 @@ export function LinkedEpisodesGrid() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <MapPin size={14} className="text-cyan-500" />
-                        <span className="truncate max-w-[200px] sm:max-w-none">{ep.location}</span>
+                        <span className="truncate max-w-50 sm:max-w-none">{ep.location}</span>
                       </div>
                     </div>
                   </div>
 
                   {/* Recompensas */}
-                  <div className="flex items-center gap-3 bg-black/40 p-3 rounded-xl border border-white/5 min-w-[180px]">
+                  <div className="flex items-center gap-3 bg-black/40 p-3 rounded-xl border border-white/5 min-w-45">
                     <Gift size={18} className="text-yellow-500 shrink-0" />
                     <div className="text-xs">
                       <p className="text-slate-500 uppercase font-black tracking-widest text-[9px]">Reward</p>

@@ -28,7 +28,7 @@ export function PaginationControls({
         <ChevronLeft size={20} />
       </button>
 
-      <div className="text-center min-w-[80px]">
+      <div className="text-center min-w-20">
         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">
           {label}
         </p>

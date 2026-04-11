@@ -11,12 +11,12 @@ interface RequestCardProps {
 export function RequestCard({ req }: RequestCardProps) {
   return (
     <div className="group relative overflow-hidden rounded-2xl border border-white/5 bg-slate-900/40 hover:bg-slate-900/60 hover:border-cyan-500/30 transition-all duration-300">
-      <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="absolute left-0 top-0 h-full w-1 bg-linear-to-b from-cyan-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <div className="p-5 md:p-6 space-y-5">
         <div className="flex flex-col md:flex-row justify-between items-start gap-4">
           <div className="flex gap-4">
-            <div className="flex-shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-sm font-black text-cyan-400 border border-cyan-500/20 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
+            <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/10 text-sm font-black text-cyan-400 border border-cyan-500/20 shadow-[0_0_15px_rgba(34,211,238,0.1)]">
               {req.order}
             </div>
 
@@ -51,7 +51,7 @@ export function RequestCard({ req }: RequestCardProps) {
               <Info size={14} />
               Mission Objective
             </div>
-            <p className="text-sm leading-relaxed text-slate-300 bg-white/[0.02] p-3 rounded-lg border border-white/[0.05]">
+            <p className="text-sm leading-relaxed text-slate-300 bg-white/2 p-3 rounded-lg border border-white/5">
               {req.solution}
             </p>
           </div>
