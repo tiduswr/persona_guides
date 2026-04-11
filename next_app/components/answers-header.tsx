@@ -17,6 +17,9 @@ export function AnswersHeader() {
         <p className="mx-auto mt-4 max-w-2xl text-pretty text-lg text-muted-foreground leading-relaxed">
           Master every aspect of your dual life. From acing surprise classroom quizzes and grueling midterms to picking the 'Best' responses during Social Links and Linked Episodes.
         </p>
+        <div className="mt-8 flex justify-center">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+        </div>
       </div>
     </section>
   )

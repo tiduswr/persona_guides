@@ -36,6 +36,9 @@ export function SocialLinkHeader() {
             Bad (-)
           </div>
         </div>
+        <div className="mt-8 flex justify-center">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+        </div>
       </div>
     </section>
   )
