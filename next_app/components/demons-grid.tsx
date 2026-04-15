@@ -44,7 +44,8 @@ export function DemonsGrid() {
   const races = metadata?.races || [];
 
   const GAMES_NAMES = {
-    p3r: 'Persona 3 Reload'
+    p3r: 'Persona 3 Reload',
+    p3rea: 'P3R: Episode Aigis'
   };
 
   return (
