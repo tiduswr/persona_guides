@@ -1,39 +1,58 @@
-name: Deploy Persona Hub
+
+name: Deploy Persona Guides
 
 on:
   push:
     branches:
-      - master  # Como seu terminal mostrou (master), mantivemos aqui
+      - master
+
+  workflow_dispatch:
+
+concurrency:
+  group: persona-guides-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.2.0
 
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1.0.3
+        env:
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+
+          envs: DEPLOY_PATH
+
           script: |
-            # 1. Navegar ou criar a pasta do projeto
-            mkdir -p ~/p3r_guides
-            cd ~/p3r_guides
+            set -eu
 
-            # 2. Se a pasta não tiver um repositório git, clona. Se tiver, atualiza.
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/${{ github.repository }}.git .
-            else
-              git pull origin master
-            fi
+            cd "$DEPLOY_PATH"
 
-            # 3. Subir os containers (o --build garante que o Next.js seja recompilado)
-            # Usamos 'app' especificamente para não reiniciar o banco sem necessidade
-            docker compose up -d --build app
-            
-            # 4. Limpeza de imagens antigas para não encher o disco da VPS
+            echo "Atualizando código..."
+            git fetch origin master
+            git reset --hard origin/master
+
+            echo "Validando Docker Compose..."
+            docker compose config --quiet
+
+            echo "Atualizando aplicação..."
+            docker compose up -d --build --no-deps app
+
+            echo "Verificando containers..."
+            docker compose ps
+
+            echo "Limpando imagens antigas..."
             docker image prune -f
+
+            echo "Deploy finalizado!"
