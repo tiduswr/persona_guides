@@ -1,35 +1,83 @@
 services:
   mongodb:
-    image: mongo:latest
-    container_name: persona_mongo
-    restart: always
+    image: mongo:8.0
+    restart: unless-stopped
+
     environment:
-      - MONGO_INITDB_DATABASE=persona_db
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password123
+      MONGO_INITDB_DATABASE: persona_db
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:?MONGO_USER não definido}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:?MONGO_PASSWORD não definido}
+
     volumes:
-      - ./mongo-data:/data/db
+      - mongo_data:/data/db
       - ./mongo-init/init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
+
     networks:
-      - persona-network
+      - persona-internal
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - >-
+          mongosh --quiet
+          --username "$$MONGO_INITDB_ROOT_USERNAME"
+          --password "$$MONGO_INITDB_ROOT_PASSWORD"
+          --authenticationDatabase admin
+          --eval "db.adminCommand('ping').ok"
+          | grep -q 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   app:
-    build: ./next_app
-    container_name: persona_app
-    restart: always
+    build:
+      context: ./next_app
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
     ports:
-      - "${PORT}:3000"
+      - "127.0.0.1:${PORT:-3100}:3000"
+
     environment:
-      - MONGODB_URI=${MONGODB_URI}
-      - NODE_ENV=production
+      NODE_ENV: production
+      MONGODB_URI: ${MONGODB_URI:?MONGODB_URI não definido}
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
+
     networks:
-      - persona-network
+      - persona-internal
+      - persona-external
+
+    init: true
+
+    security_opt:
+      - no-new-privileges:true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
 
 networks:
-  persona-network:
+  persona-internal:
+    driver: bridge
+    internal: true
+
+  persona-external:
     driver: bridge
 
 volumes:
-  mongo-data:
+  mongo_data:
